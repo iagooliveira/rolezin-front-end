@@ -1,12 +1,16 @@
 import React from "react";
-import HomeSection from "./submodules/HomeSection";
+import FirstSection from "./submodules/HomeSection";
+import SecondSection from "./submodules/secondSection/secondSection";
 import MainHeader from "./submodules/MainHeader";
+import Footer from "./submodules/footer/footer.jsx";
 
 const MainPage = () => {
   return (
     <>
       <MainHeader />
-      <HomeSection />
+      <FirstSection />
+      <SecondSection/>
+      <Footer/>
     </>
   );
 };

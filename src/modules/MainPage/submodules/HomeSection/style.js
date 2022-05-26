@@ -67,7 +67,7 @@ display:flex ;
 justify-content:flex-end ;
 height:100% ;
 img {
-    margin-top:2px ;
+    //margin-top:2px ;
     border-top-left-radius:6%;
     border-bottom-left-radius: 6%;
     width:95% ;

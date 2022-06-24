@@ -16,6 +16,7 @@ import {
 import { DialogLogin } from "./style";
 import TextField from "../../../../../../Components/TextField/index";
 import Form from "../../../../../../Components/Form/index";
+import { usersUseCases } from "../Login/providers";
 
 const LoginModal = ({ modal, handleClose }) => {
   const formMethods = useForm({
@@ -27,8 +28,12 @@ const LoginModal = ({ modal, handleClose }) => {
   });
   const { control, reset } = formMethods;
 
-  const handleSubmit = (formData) => {
-    console.log(formData);
+  const handleSubmit = async (formData) => {
+    const verificada = formData.verificada === "sim" ? true : false;
+    const dataObj = { ...formData, verificada };
+    const response = await usersUseCases.createUser(dataObj);
+
+    return response;
   };
 
   return (

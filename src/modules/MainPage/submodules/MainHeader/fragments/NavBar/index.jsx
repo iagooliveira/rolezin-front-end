@@ -29,7 +29,7 @@ const NavBar = () => {
           variant="text"
           sx={{ color: "#333333" }}
         >
-          Login
+          Cadastro
         </LoginButton>
       </Wrapper>
 

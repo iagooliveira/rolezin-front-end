@@ -10,12 +10,12 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { DialogLogin } from "./style";
+import { DialogCreateLocal } from "./style";
 import TextField from "../../../../../../Components/TextField/index";
 import Form from "../../../../../../Components/Form/index";
-import { usersUseCases } from "../Login/providers";
+import { localsUseCases } from "../../../../providers/index";
 
-const LoginModal = ({ modal, handleClose }) => {
+const CreateLocalModal = ({ modal, handleClose }) => {
   const formMethods = useForm({
     defaultValues: {},
     resolver: yupResolver(formSchema),
@@ -26,15 +26,14 @@ const LoginModal = ({ modal, handleClose }) => {
   const { control } = formMethods;
 
   const handleSubmit = async (formData) => {
-    const verificada = formData.verificada === "sim" ? true : false;
-    const dataObj = { ...formData, verificada };
-    const response = await usersUseCases.createUser(dataObj);
-
+    console.log(formData);
+    const data = { ...formData, usuario: { userId: 1 } };
+    const response = await localsUseCases.createLocal(data);
     return response;
   };
 
   return (
-    <DialogLogin open={modal} onClose={handleClose} maxWidth="md">
+    <DialogCreateLocal open={modal} onClose={handleClose} maxWidth="md">
       <DialogTitle
         display="flex"
         sx={{
@@ -43,7 +42,7 @@ const LoginModal = ({ modal, handleClose }) => {
         }}
       >
         <Box display="flex" alignItems="center">
-          <Typography variant="subtitle1">Login</Typography>
+          <Typography variant="subtitle1">Criar Local</Typography>
         </Box>
       </DialogTitle>
       <DialogContent
@@ -55,32 +54,16 @@ const LoginModal = ({ modal, handleClose }) => {
         <Form formMethods={formMethods} onSubmit={handleSubmit}>
           <Grid container spacing={2} mt={1}>
             <Grid item xs={6}>
+              <TextField control={control} name="id_locais" label="IdLocal" />
+            </Grid>
+            <Grid item xs={6}>
               <TextField control={control} name="nome" label="Nome" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="email" label="Email" />
+              <TextField control={control} name="categoria" label="Categoria" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="login" label="Login" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="senha" label="Senha" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                control={control}
-                name="verificada"
-                label="Verificada"
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="estado" label="Estado" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="cidade" label="Cidade" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="bairro" label="Bairro" />
+              <TextField control={control} name="endereco" label="Endereço" />
             </Grid>
           </Grid>
           <DialogActions sx={{ marginTop: "20px" }}>
@@ -95,7 +78,7 @@ const LoginModal = ({ modal, handleClose }) => {
           </DialogActions>
         </Form>
       </DialogContent>
-    </DialogLogin>
+    </DialogCreateLocal>
   );
 };
-export default LoginModal;
+export default CreateLocalModal;

@@ -11,19 +11,19 @@ export const SidebarData = [
   },
   {
     title: 'Eventos',
-    path: '/',
+    path: '/events-page',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },
   {
-    title: 'Usuário',
-    path: '/',
+    title: 'Usuários',
+    path: '/users-page',
     icon: <IoIcons.IoMdPeople />,
     cName: 'nav-text'
   },
   {
     title: 'Locais',
-    path: '/',
+    path: '/locals-page',
     icon: <IoIcons.IoMdLocate />,
     cName: 'nav-text'
   }

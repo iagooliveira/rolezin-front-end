@@ -11,4 +11,11 @@ export default class AuthUseCases {
 
         return response;
     }
+
+    async patchUser(id, formData){
+
+      const response = await this.usersService.patchUser(id,formData);
+
+        return response;
+    }
 }  

@@ -1,4 +1,4 @@
-import { http } from './../../../../../../../Managers/Http/index' //'./../../../../../../../../src/Managers/Http/index' //'Managers/Http';
+import { http } from  '../../../Managers/Http/index'  
 
 import UsersService from './users.service';
 import UsersUseCases from './users.useCases';

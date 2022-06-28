@@ -10,12 +10,13 @@ import {
   DialogTitle,
   Grid,
 } from "@mui/material";
-import { DialogLogin } from "./style";
+import { DialogEventLocal } from "./style";
 import TextField from "../../../../../../Components/TextField/index";
+import NumberTextField from "../../../../../../Components/NumberTextField";
 import Form from "../../../../../../Components/Form/index";
-import { usersUseCases } from "../Login/providers";
+import { eventsUseCases } from "../../../../providers/index";
 
-const LoginModal = ({ modal, handleClose }) => {
+const CreateEventModal = ({ modal, handleClose }) => {
   const formMethods = useForm({
     defaultValues: {},
     resolver: yupResolver(formSchema),
@@ -26,15 +27,18 @@ const LoginModal = ({ modal, handleClose }) => {
   const { control } = formMethods;
 
   const handleSubmit = async (formData) => {
-    const verificada = formData.verificada === "sim" ? true : false;
-    const dataObj = { ...formData, verificada };
-    const response = await usersUseCases.createUser(dataObj);
+    const data = {
+      ...formData,
+      userId: { userId: 1 },
+      preco: Number(formData.preco),
+    };
+    const response = await eventsUseCases.createEvent(data);
 
     return response;
   };
 
   return (
-    <DialogLogin open={modal} onClose={handleClose} maxWidth="md">
+    <DialogEventLocal open={modal} onClose={handleClose} maxWidth="md">
       <DialogTitle
         display="flex"
         sx={{
@@ -43,7 +47,7 @@ const LoginModal = ({ modal, handleClose }) => {
         }}
       >
         <Box display="flex" alignItems="center">
-          <Typography variant="subtitle1">Login</Typography>
+          <Typography variant="subtitle1">Criar Evento</Typography>
         </Box>
       </DialogTitle>
       <DialogContent
@@ -54,33 +58,28 @@ const LoginModal = ({ modal, handleClose }) => {
       >
         <Form formMethods={formMethods} onSubmit={handleSubmit}>
           <Grid container spacing={2} mt={1}>
+            {/* <Grid item xs={6}>
+              <TextField control={control} name="idevent" label="IdEvento" />
+            </Grid> */}
             <Grid item xs={6}>
               <TextField control={control} name="nome" label="Nome" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="email" label="Email" />
+              <TextField control={control} name="endereco" label="Endereço" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="login" label="Login" />
+              <TextField control={control} name="categoria" label="Categoria" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="senha" label="Senha" />
+              <TextField control={control} name="horario" label="Horario" />
             </Grid>
             <Grid item xs={6}>
-              <TextField
+              <NumberTextField
+                currency
                 control={control}
-                name="verificada"
-                label="Verificada"
+                name="preco"
+                label="Preço"
               />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="estado" label="Estado" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="cidade" label="Cidade" />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField control={control} name="bairro" label="Bairro" />
             </Grid>
           </Grid>
           <DialogActions sx={{ marginTop: "20px" }}>
@@ -95,7 +94,7 @@ const LoginModal = ({ modal, handleClose }) => {
           </DialogActions>
         </Form>
       </DialogContent>
-    </DialogLogin>
+    </DialogEventLocal>
   );
 };
-export default LoginModal;
+export default CreateEventModal;

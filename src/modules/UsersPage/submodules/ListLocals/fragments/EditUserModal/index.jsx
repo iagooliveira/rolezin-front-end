@@ -13,9 +13,10 @@ import {
 import { DialogLogin } from "./style";
 import TextField from "../../../../../../Components/TextField/index";
 import Form from "../../../../../../Components/Form/index";
-import { usersUseCases } from "../Login/providers";
+import { usersUseCases } from "../../../../../MainPage/submodules/MainHeader/fragments/Login/providers";
+import { useState } from "react";
 
-const LoginModal = ({ modal, handleClose }) => {
+const EditUserModal = ({ id, modal, handleClose }) => {
   const formMethods = useForm({
     defaultValues: {},
     resolver: yupResolver(formSchema),
@@ -28,7 +29,8 @@ const LoginModal = ({ modal, handleClose }) => {
   const handleSubmit = async (formData) => {
     const verificada = formData.verificada === "sim" ? true : false;
     const dataObj = { ...formData, verificada };
-    const response = await usersUseCases.createUser(dataObj);
+    console.log(dataObj);
+    const response = await usersUseCases.patchUser(id, dataObj);
 
     return response;
   };
@@ -64,9 +66,6 @@ const LoginModal = ({ modal, handleClose }) => {
               <TextField control={control} name="login" label="Login" />
             </Grid>
             <Grid item xs={6}>
-              <TextField control={control} name="senha" label="Senha" />
-            </Grid>
-            <Grid item xs={6}>
               <TextField
                 control={control}
                 name="verificada"
@@ -81,6 +80,9 @@ const LoginModal = ({ modal, handleClose }) => {
             </Grid>
             <Grid item xs={6}>
               <TextField control={control} name="bairro" label="Bairro" />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField control={control} name="senha" label="Senha" />
             </Grid>
           </Grid>
           <DialogActions sx={{ marginTop: "20px" }}>
@@ -98,4 +100,4 @@ const LoginModal = ({ modal, handleClose }) => {
     </DialogLogin>
   );
 };
-export default LoginModal;
+export default EditUserModal;
